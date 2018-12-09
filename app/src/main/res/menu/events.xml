@@ -4,6 +4,6 @@
     <item
             android:orderInCategory="1"
             android:id="@+id/action_refresh"
-            android:title="@string/refresh"
+            android:title="@string/action_refresh"
             app:showAsAction="ifRoom"/>
 </menu>
