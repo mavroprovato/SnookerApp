@@ -3,6 +3,8 @@ package net.mavroprovato.snookerapp
 import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import net.mavroprovato.snookerapp.api.eventsInSeason
 
@@ -20,7 +22,42 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        fetchEvents()
+    }
+
+    fun fetchEvents() {
         FetchEventsTask().execute(2018)
+    }
+
+    /**
+     * Create the options menu.
+     *
+     * @param menu The menu.
+     * @return True if the menu is to be displayed.
+     */
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.events, menu)
+
+        return true
+    }
+
+    /**
+     * Called when a menu item is selected.
+     *
+     * @param item The menu item.
+     * @return True if we are processing the event, false otherwise.
+     */
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.action_refresh -> {
+                tv_events.text = ""
+                fetchEvents()
+
+                return true
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     /**
