@@ -3,16 +3,20 @@ package net.mavroprovato.snookerapp
 import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
+import net.mavroprovato.snookerapp.adapter.EventsAdapter
 import net.mavroprovato.snookerapp.api.SnookerOrgApi
 
 /**
  * The main application activity.
  */
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var eventsAdapter: EventsAdapter
 
     /**
      * Create the activity.
@@ -22,6 +26,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        rv_events.layoutManager = LinearLayoutManager(this)
+        eventsAdapter = EventsAdapter()
+        rv_events.adapter = eventsAdapter
 
         fetchEvents()
     }
@@ -38,7 +46,7 @@ class MainActivity : AppCompatActivity() {
      * Make the events view visible and hide the error view.
      */
     private fun showEvents() {
-        tv_events.visibility = View.VISIBLE
+        rv_events.visibility = View.VISIBLE
         tv_error_message_display.visibility = View.INVISIBLE
     }
 
@@ -46,7 +54,7 @@ class MainActivity : AppCompatActivity() {
      * Hide the events view and make the error view visible.
      */
     private fun showErrors() {
-        tv_events.visibility = View.INVISIBLE
+        rv_events.visibility = View.INVISIBLE
         tv_error_message_display.visibility = View.VISIBLE
     }
 
@@ -71,7 +79,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.action_refresh -> {
-                tv_events.text = ""
+                eventsAdapter.eventData = listOf()
                 fetchEvents()
 
                 return true
@@ -113,8 +121,8 @@ class MainActivity : AppCompatActivity() {
             if (result == null) {
                 showErrors()
             } else {
+                eventsAdapter.eventData = result
                 showEvents()
-                result.forEach { tv_events.append(it + "\n\n\n") }
             }
         }
     }
