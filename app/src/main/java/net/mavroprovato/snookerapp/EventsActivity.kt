@@ -7,15 +7,16 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_events.*
 import net.mavroprovato.snookerapp.adapter.EventsAdapter
 import net.mavroprovato.snookerapp.api.SnookerOrgApi
 
 /**
  * The main application activity.
  */
-class MainActivity : AppCompatActivity() {
+class EventsActivity : AppCompatActivity() {
 
+    /** The events adapter */
     private lateinit var eventsAdapter: EventsAdapter
 
     /**
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_events)
 
         rv_events.layoutManager = LinearLayoutManager(this)
         eventsAdapter = EventsAdapter()
