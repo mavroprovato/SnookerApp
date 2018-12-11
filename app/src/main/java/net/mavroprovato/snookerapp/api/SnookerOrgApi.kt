@@ -12,11 +12,14 @@ const val EVENTS_IN_SEASON_TYPE = "5"
 class SnookerOrgApi {
 
     companion object {
+        /** The logging tag */
+        private const val TAG = "SnookerOrgApi"
+
         /**
          * Return the events in a season.
          *
          * @param year The event year
-         * @return The list of events.
+         * @return The list of events or null if an error has occurred.
          */
         fun eventsInSeason(year: Int): List<String>? {
             try {
@@ -24,7 +27,9 @@ class SnookerOrgApi {
                     .appendQueryParameter("t", EVENTS_IN_SEASON_TYPE)
                     .appendQueryParameter("s", year.toString())
                     .build()
+                Log.i(TAG, "Fetching events")
                 val result = URL(uri.toString()).readText()
+                Log.e(TAG, "Events fetched")
                 val json = JSONArray(result)
                 val events: MutableList<String> = ArrayList()
 
@@ -35,7 +40,7 @@ class SnookerOrgApi {
 
                 return events
             } catch (e: Exception) {
-                Log.e("SnookerOrgAPI", "exception", e)
+                Log.e(TAG, "exception", e)
                 return null
             }
         }
