@@ -6,15 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.events_list_item.view.*
 import net.mavroprovato.snookerapp.R
-import net.mavroprovato.snookerapp.adapter.EventsAdapter.EventsAdapterViewHolder
 
 /**
  * Provide binding to the event recycler view.
  */
-class EventsAdapter : RecyclerView.Adapter<EventsAdapterViewHolder>() {
+class CalendarEventsAdapter : RecyclerView.Adapter<CalendarEventsAdapter.CalendarEventsAdapterViewHolder>() {
 
     /** The event information */
-    var eventData: List<String> = listOf()
+    var calendarEventsData: List<String> = listOf()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -23,8 +22,8 @@ class EventsAdapter : RecyclerView.Adapter<EventsAdapterViewHolder>() {
     /**
      * Describe the event view about its place in the recycler view
      */
-    inner class EventsAdapterViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        val tvEventData = itemView.tv_event_data!!
+    inner class CalendarEventsAdapterViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+        val tvCalendarEventData = itemView.tv_event_data!!
     }
 
     /**
@@ -34,11 +33,11 @@ class EventsAdapter : RecyclerView.Adapter<EventsAdapterViewHolder>() {
      * @param viewType The view type of the new View.
      * @return A new ViewHolder that holds a View of the given view type.
      */
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventsAdapterViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarEventsAdapterViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.events_list_item, parent, false)
 
-        return EventsAdapterViewHolder(view)
+        return CalendarEventsAdapterViewHolder(view)
     }
 
     /**
@@ -49,8 +48,8 @@ class EventsAdapter : RecyclerView.Adapter<EventsAdapterViewHolder>() {
      * the data set.
      * @param position The position of the item within the adapter's data set.
      */
-    override fun onBindViewHolder(holder: EventsAdapterViewHolder, position: Int) {
-        holder.tvEventData.text = eventData[position]
+    override fun onBindViewHolder(holder: CalendarEventsAdapterViewHolder, position: Int) {
+        holder.tvCalendarEventData.text = calendarEventsData[position]
     }
 
     /**
@@ -59,6 +58,6 @@ class EventsAdapter : RecyclerView.Adapter<EventsAdapterViewHolder>() {
      * @return The total number of items in this adapter.
      */
     override fun getItemCount(): Int {
-        return eventData.size
+        return calendarEventsData.size
     }
 }

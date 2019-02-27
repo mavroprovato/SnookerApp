@@ -8,16 +8,16 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import kotlinx.android.synthetic.main.activity_events.*
-import net.mavroprovato.snookerapp.adapter.EventsAdapter
+import net.mavroprovato.snookerapp.adapter.CalendarEventsAdapter
 import net.mavroprovato.snookerapp.api.SnookerOrgApi
 
 /**
  * The main application activity.
  */
-class EventsActivity : AppCompatActivity() {
+class CalendarEventsActivity : AppCompatActivity() {
 
     /** The events adapter */
-    private lateinit var eventsAdapter: EventsAdapter
+    private lateinit var calendarEventsAdapter: CalendarEventsAdapter
 
     /**
      * Create the activity.
@@ -29,8 +29,8 @@ class EventsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_events)
 
         rv_events.layoutManager = LinearLayoutManager(this)
-        eventsAdapter = EventsAdapter()
-        rv_events.adapter = eventsAdapter
+        calendarEventsAdapter = CalendarEventsAdapter()
+        rv_events.adapter = calendarEventsAdapter
 
         fetchEvents()
     }
@@ -40,7 +40,7 @@ class EventsActivity : AppCompatActivity() {
      */
     private fun fetchEvents() {
         showEvents()
-        FetchEventsTask().execute(2018)
+        FetchCalendarEventsTask().execute(2018)
     }
 
     /**
@@ -80,7 +80,7 @@ class EventsActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.action_refresh -> {
-                eventsAdapter.eventData = listOf()
+                calendarEventsAdapter.calendarEventsData = listOf()
                 fetchEvents()
 
                 return true
@@ -93,7 +93,7 @@ class EventsActivity : AppCompatActivity() {
     /**
      * A asynchronous task that fetches all events in a year.
      */
-    inner class FetchEventsTask : AsyncTask<Int, Void, List<String>>() {
+    inner class FetchCalendarEventsTask : AsyncTask<Int, Void, List<String>>() {
 
         override fun onPreExecute() {
             super.onPreExecute()
@@ -122,7 +122,7 @@ class EventsActivity : AppCompatActivity() {
             if (result == null) {
                 showErrors()
             } else {
-                eventsAdapter.eventData = result
+                calendarEventsAdapter.calendarEventsData = result
                 showEvents()
             }
         }

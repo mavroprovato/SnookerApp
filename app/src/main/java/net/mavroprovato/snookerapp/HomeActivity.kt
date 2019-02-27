@@ -1,5 +1,6 @@
 package net.mavroprovato.snookerapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -57,7 +58,8 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             }
             R.id.nav_calendar -> {
-
+                intent = Intent(this, CalendarEventsActivity::class.java)
+                startActivity(intent)
             }
             R.id.nav_rankings -> {
 
