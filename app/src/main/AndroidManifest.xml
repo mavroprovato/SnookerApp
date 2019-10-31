@@ -24,7 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".CalendarEventsActivity">
+        <activity android:name=".CalendarEventsActivity"
             android:label="@string/title_calendar_events"
             android:parentActivityName=".HomeActivity">
             <meta-data android:name="android.support.PARENT_ACTIVITY"
